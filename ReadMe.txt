@@ -21,4 +21,4 @@
 
 dependency injection
 IEnumerable<WeatherForecast>
- [HttpGet(Name = "GetWeatherForecast")]
+ [HttpGet(Name = "GetWeatherForecast")] 
