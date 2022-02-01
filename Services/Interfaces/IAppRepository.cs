@@ -1,9 +1,16 @@
-﻿using ChatApp.Entities;
+﻿using ChatApp.Dtos;
+using ChatApp.Entities;
 
 namespace ChatApp.Services.Interfaces
 {
     public interface IAppRepository
     {
-        List<User> GetUsers(); 
+        void SignUp(User user);
+        List<User> GetUsers();
+        UserDto SignIn(string userName, string password);
+        User GetUserById(int id);
+        User GetUserByUserName(string userName);
+        MessageDto AddMessage(Message message);
+        List<Message> GetUserMessages(int userId, int contactId);
     }
 }

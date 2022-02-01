@@ -22,3 +22,13 @@
 dependency injection
 IEnumerable<WeatherForecast>
  [HttpGet(Name = "GetWeatherForecast")] 
+ AddTransient
+
+ AddTransient
+ yield 
+                             EntityEntry<Message>
+ static class 
+ partial class
+ handle entity valid exception
+
+ SymmetricSecurityKey
