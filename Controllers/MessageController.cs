@@ -13,10 +13,12 @@ namespace ChatApp.Controllers
     public class MessageController : ControllerBase
     {
         private readonly IAppRepository _repository;
+        private readonly IAppService _service;
         private readonly IHubContext<ChatHub> _hubContext;
-        public MessageController(IAppRepository repository, IHubContext<ChatHub> hubContext)
+        public MessageController(IAppRepository repository, IAppService service, IHubContext<ChatHub> hubContext)
         {
             _repository = repository;
+            _service = service;
             _hubContext = hubContext;
         }
 
@@ -25,16 +27,10 @@ namespace ChatApp.Controllers
         [HttpPost]
         public IActionResult AddMessage(Message message)
         {
-            try
-            {
-                MessageDto messageDto=_repository.AddMessage(message);
+                Message m=_repository.AddMessage(message);
+                MessageDto messageDto = MessageDto.Mapper(m);
                 _hubContext.Clients.All.SendAsync("MessageReceived", messageDto);
                 return Ok();
-            }
-            catch (Exception ex)
-            {
-               return BadRequest( ex.Message);
-            }
         }
 
         [Authorize]
@@ -42,16 +38,9 @@ namespace ChatApp.Controllers
         [HttpGet]
         public IActionResult GetUserMessages(int userId, int contactId)
         {
-            try
-            {
                 var messageList = _repository.GetUserMessages(userId, contactId);
-                var messageDtoList = _repository.GetUserMessages(userId, contactId);
+                var messageDtoList = _service.GetAllMessagesDto(messageList);
                return Ok( messageDtoList);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest( ex.Message);
-            }
         }
     }
 }

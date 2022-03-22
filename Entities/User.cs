@@ -11,6 +11,7 @@ namespace ChatApp.Entities
         public int UserId { get; private set; }
 
         [Display(Name = "User Name")]
+        [StringLength(5, ErrorMessage = "Invalid Length")]
         [Required(ErrorMessage ="User Name is Required")]
         public string UserName { get; set; }
 
@@ -21,6 +22,7 @@ namespace ChatApp.Entities
         public string Password { get; set; }
 
         [Display(Name = "Full Name")]
+        [StringLength(4, ErrorMessage = "Invalid Length")]
         [Required(ErrorMessage = "User Name is Required")]
         public string FullName { get; set; }
 

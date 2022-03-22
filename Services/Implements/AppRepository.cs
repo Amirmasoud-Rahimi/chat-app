@@ -26,11 +26,11 @@ namespace ChatApp.Services.Implements
 
         public void SignUp(User user)
         {
-            string salt = BCryptTool.GenerateSalt();
-            user.Password = BCryptTool.HashPassword(user.Password, salt);
-            user.DateOfJoining = DateTime.Now;
-            _context.Users.Add(user);
-            _context.SaveChanges();
+                string salt = BCryptTool.GenerateSalt();
+                user.Password = BCryptTool.HashPassword(user.Password, salt);
+                user.DateOfJoining = DateTime.Now;
+                _context.Users.Add(user);
+                _context.SaveChanges();
         }
 
         public UserDto SignIn(string userName, string password)
@@ -43,15 +43,15 @@ namespace ChatApp.Services.Implements
                 UserDto dto = UserDto.SignInMapper(user, token);
                 return dto;
             }
-            throw new Exception("user not found");
+            throw new KeyNotFoundException("user not found");
         }
 
-        public MessageDto AddMessage(Message message)
+        public Message AddMessage(Message message)
         {
             message.SendingDate = DateTime.Now;
             EntityEntry<Message> messageEntity= _context.Messages.Add(message);
             _context.SaveChanges();
-            return MessageDto.Mapper(messageEntity.Entity);
+            return messageEntity.Entity;
         }
 
         public List<Message> GetUserMessages(int userId, int contactId)

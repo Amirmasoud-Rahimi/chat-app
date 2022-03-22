@@ -10,7 +10,7 @@ namespace ChatApp.Services.Interfaces
         UserDto SignIn(string userName, string password);
         User GetUserById(int id);
         User GetUserByUserName(string userName);
-        MessageDto AddMessage(Message message);
+        Message AddMessage(Message message);
         List<Message> GetUserMessages(int userId, int contactId);
     }
 }

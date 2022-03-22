@@ -1,5 +1,6 @@
 ﻿using ChatApp.Dao;
 using ChatApp.Hubs;
+using ChatApp.MiddleWares;
 using ChatApp.Services.Implements;
 using ChatApp.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -103,10 +104,10 @@ namespace ChatApp
             }
 
             app.UseAuthentication();
-            
-            //app.MapControllers();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
